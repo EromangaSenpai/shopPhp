@@ -1,0 +1,43 @@
+.normal-color {
+    filter: invert(0%);
+}
+
+.inverted-color {
+    filter: invert(100%);
+}
+
+.background{
+    background: #536976;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #292E49, #536976);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #292E49, #536976); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.div-column-style{
+    cursor: pointer;
+    /*border: 1px solid black;*/
+
+}
+
+.zoom {
+    transition: transform .2s;
+}
+
+.zoom:hover {
+    transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+
+
+.backgroundimg{
+    background-color: #2b2b2b;
+    border-color: #2b2b2b;
+}
+
+.describtioncolor{
+    color: #dfdfdf;
+}
+
+.vis-hidden{
+    visibility: hidden;
+}

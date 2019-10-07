@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="a2ac8064-d91d-4034-8a98-04e68c01586d" name="APACHESHOP" url="http://localhost:88/shopPhp">
+        <fileTransfer port="0" mountedRoot="c:\xampp\htdocs" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>
