@@ -17,6 +17,7 @@ if(isset($_SESSION['key']))
     }
 
     $_SESSION['savingCart'] .= $tableCell;
-    (int)$_SESSION['count'] += 1;
+    $tmp = $_SESSION['count'];
+    (int)$tmp += 1;
     echo $tableCell;
 }

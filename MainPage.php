@@ -4,6 +4,8 @@ if (!isset($_SESSION))
 
 require 'phpScripts/ProductInfo.php';
 require 'phpScripts/UserInfo.php';
+require 'phpScripts/ServerInfo.php';
+
 
 if(isset($_SESSION['key']))
 {
@@ -16,6 +18,7 @@ else
 }
 
 $productInfo = new ProductInfo;
+$serverInfo = new ServerInfo;
 
 $info = $productInfo->info;
 $goods = $productInfo->goods;
@@ -24,6 +27,12 @@ $modal = $userInfo->ModalWindowType();
 $cartModal = $userInfo->ModalWindowCartType();
 $myCart = null;
 
+
+$text = "Catalog";
+if($serverInfo->IsMobile())
+{
+    $text = "";
+}
 
 
 if(isset($_SESSION['savingCart'])) {
@@ -88,42 +97,45 @@ if(isset($_SESSION['savingCart'])) {
 
         }
     </script>
-    <style>
-        hr {
-            border:1px solid rgb(211, 211, 211);
-        border-bottom-width: 0;
-        }
 
-        .jssorl-009-spin img {
-            animation-name: jssorl-009-spin;
-            animation-duration: 1.6s;
-            animation-iteration-count: infinite;
-            animation-timing-function: linear;
-        }
+        <style>
+            hr {
+                border:1px solid rgb(211, 211, 211);
+                border-bottom-width: 0;
+            }
 
-        @keyframes jssorl-009-spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+            .jssorl-009-spin img {
+                animation-name: jssorl-009-spin;
+                animation-duration: 1.6s;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+            }
 
-
-        .jssorb051 .i {position:absolute;cursor:pointer;}
-        .jssorb051 .i .b {fill:#fff;fill-opacity:0.5;}
-        .jssorb051 .i:hover .b {fill-opacity:.7;}
-        .jssorb051 .iav .b {fill-opacity: 1;}
-        .jssorb051 .i.idn {opacity:.3;}
+            @keyframes jssorl-009-spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
 
 
-        .jssora051 {display:block;position:absolute;cursor:pointer;}
-        .jssora051 .a {fill:none;stroke:#fff;stroke-width:360;stroke-miterlimit:10;}
-        .jssora051:hover {opacity:.8;}
-        .jssora051.jssora051dn {opacity:.5;}
-        .jssora051.jssora051ds {opacity:.3;pointer-events:none;}
-    </style>
+            .jssorb051 .i {position:absolute;cursor:pointer;}
+            .jssorb051 .i .b {fill:#fff;fill-opacity:0.5;}
+            .jssorb051 .i:hover .b {fill-opacity:.7;}
+            .jssorb051 .iav .b {fill-opacity: 1;}
+            .jssorb051 .i.idn {opacity:.3;}
+
+
+            .jssora051 {display:block;position:absolute;cursor:pointer;}
+            .jssora051 .a {fill:none;stroke:#fff;stroke-width:360;stroke-miterlimit:10;}
+            .jssora051:hover {opacity:.8;}
+            .jssora051.jssora051dn {opacity:.5;}
+            .jssora051.jssora051ds {opacity:.3;pointer-events:none;}
+        </style>
+
+
     <title>Main Page</title>
 <body class="background">
 
-<div class="jumbotron text-center" style="margin-bottom:0">
+<div class="jumbotron text-center bg-secondary" style="margin-bottom:0">
     <h1>Welcome to our shop</h1>
     <p>We are happy to see you there</p>
 </div>
@@ -134,17 +146,18 @@ if(isset($_SESSION['savingCart'])) {
     <nav id="anchor" class="navbar navbar-dark bg-dark">
         <div class="form-inline">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span> Catalog
+                <span class="navbar-toggler-icon"></span> <?php echo $text?>
             </button>
             <?php if(!empty($btn)): echo $btn; endif;?>
         </div>
 
         <div class="form-inline">
             <a href="#" class="mr-4" data-toggle="modal" data-target="#exampleModal"><?php if(!isset($_SESSION['key'])): echo 'Hello User'; else: echo $_SESSION['name']; endif;?></a>
-            <button class="btn btn-outline-success mr-sm-2">Compare</button>
+            <!--button class="btn btn-outline-success mr-sm-2">Compare</button-->
             <button data-toggle="modal" data-target="#cartModal" class="btn btn-outline-success my-2 my-sm-0"><span><img src="fonts/icon_cart.svg" width="20px" height="20px"></span>
                 &nbsp;Cart &nbsp;<span class="badge badge-dark" id="cartCount"><?php if(isset($_SESSION['count'])): echo $_SESSION['count']; endif;?></span></button>
         </div>
+
         <!-- End Navbar -->
 
 
