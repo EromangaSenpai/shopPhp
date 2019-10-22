@@ -16,7 +16,6 @@ else
 {
     $userInfo = new UserInfo('','','');
 }
-
 $productInfo = new ProductInfo;
 $serverInfo = new ServerInfo;
 
@@ -50,6 +49,18 @@ if(isset($_SESSION['savingCart'])) {
 
     <link rel="stylesheet" href="css/myStyles.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <!-- Custom css -->
+    <link rel="stylesheet" href="css/default.css">
+    <!-- Main css -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Responsive css -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Fontawesome css -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <!-- Ionicons css -->
+    <link rel="stylesheet" href="css/ionicons.min.css">
+    <!-- linearicons css -->
+    <link rel="stylesheet" href="css/linearicons.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
@@ -158,7 +169,7 @@ if(isset($_SESSION['savingCart'])) {
                 &nbsp;Cart &nbsp;<span class="badge badge-dark" id="cartCount"><?php if(isset($_SESSION['count'])): echo $_SESSION['count']; endif;?></span></button>
         </div>
 
-        <!-- End Navbar -->
+
 
 
         <!-- Cart Modal -->
@@ -218,6 +229,8 @@ if(isset($_SESSION['savingCart'])) {
     </div>
 </div>
 
+<!-- End Navbar-->
+
 <br>
 
 
@@ -229,41 +242,18 @@ if(isset($_SESSION['savingCart'])) {
     </div>
     <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:380px;overflow:hidden;">
         <div>
-            <img data-u="image" src="js/img/001.jpg" />
+            <img data-u="image" src="img/adverisment/back_to_school_desk.png" />
         </div>
         <div>
-            <img data-u="image" src="js/img/002.jpg" />
+            <img data-u="image" src="img/adverisment/desktop_in_stock.png" />
         </div>
         <div>
-            <img data-u="image" src="js/img/003.jpg" />
+            <img data-u="image" src="img/adverisment/mac_desk.png" />
         </div>
         <div>
-            <img data-u="image" src="js/img/004.jpg" />
+            <img data-u="image" src="img/adverisment/1300x500_shop-partner_2_.jpg" />
         </div>
-        <div>
-            <img data-u="image" src="js/img/005.jpg" />
-        </div>
-        <div>
-            <img data-u="image" src="js/img/006.jpg" />
-        </div>
-        <div>
-            <img data-u="image" src="js/img/007.jpg" />
-        </div>
-        <div>
-            <img data-u="image" src="js/img/008.jpg" />
-        </div>
-        <div>
-            <img data-u="image" src="js/img/009.jpg" />
-        </div>
-        <div>
-            <img data-u="image" src="js/img/010.jpg" />
-        </div>
-        <div>
-            <img data-u="image" src="js/img/011.jpg" />
-        </div>
-        <div>
-            <img data-u="image" src="js/img/012.jpg" />
-        </div>
+
     </div>
     <!-- Bullet Navigator -->
     <div data-u="navigator" class="jssorb051" style="position:absolute;bottom:12px;right:12px;" data-autocenter="1" data-scale="0.5" data-scale-bottom="0.75">
@@ -286,11 +276,13 @@ if(isset($_SESSION['savingCart'])) {
     </div>
 </div>
 <!-- End Slider -->
+
+
 <br><br>
 
 <div class="container" id="maindiv">
     <center><h1 class="bg-secondary">Our products</h1></center>
-
+<br>
 
     <?php echo $info?>
         <div class="row" id="catalog">
@@ -301,9 +293,80 @@ if(isset($_SESSION['savingCart'])) {
 
 
 
-<div class="jumbotron text-center bg-dark" style="margin-bottom:0">
-    <p class="text-white-50">Footer</p>
-</div>
+<!-- Footer Area Start Here -->
+<footer class="off-white-bg2 pt-95 bdr-top pt-sm-55">
+    <!-- Footer Top Start -->
+    <div class="footer-top">
+        <div class="container">
+            <!-- Signup Newsletter Start -->
+            <div class="row mb-60">
+                <div class="col-xl-7 col-lg-7 ml-auto mr-auto col-md-8">
+                    <div class="news-desc text-center mb-30">
+                        <h3>Subscribe!</h3>
+                        <p>Be nice guys and subscribe to get unuseful distribution</p>
+                    </div>
+                    <div class="newsletter-box">
+                        <form action="#">
+                            <input class="subscribe" placeholder="your email address" name="email" id="subscribe" type="text">
+                            <button type="submit" class="submit">Subscribe!</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Signup-Newsletter End -->
+            <div class="row">
+                <!-- Single Footer Start -->
+                <div class="col-lg-2 col-md-4 col-sm-6">
+                    <div class="single-footer mb-sm-40">
+                        <h3 class="footer-title">Information</h3>
+                        <div class="footer-content">
+                            <ul class="footer-list">
+                                <li><a href="about.html">About Us</a></li>
+                                <li><a href="#">Delivery info</a></li>
+                                <li><a href="contact.html">Private Policy</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">Return Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="single-footer mb-sm-40">
+                        <h3 class="footer-title">Contacts</h3>
+                        <div class="footer-content">
+                            <ul class="footer-list address-content">
+                                <li><i class="lnr lnr-map-marker"></i> Address: Fog Street 99.</li>
+                                <li><i class="lnr lnr-envelope"></i><a href="https://mail.google.com">Mail: bidshop@gmail.com</a></li>
+                                <li>
+                                    <i class="lnr lnr-phone-handset"></i> Telephone: (+380) 96 666 6666)
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Single Footer Start -->
+            </div>
+            <!-- Row End -->
+        </div>
+        <!-- Container End -->
+    </div>
+    <!-- Footer Top End -->
+
+    <!-- Footer Bottom Start -->
+    <div class="footer-bottom pb-30">
+        <div class="container">
+
+            <div class="copyright-text text-center">
+                <p>Copyright © 2019 <a target="_blank" href="#">Badayindustries</a> All Rights Reserved.</p>
+            </div>
+        </div>
+        <!-- Container End -->
+    </div>
+    <!-- Footer Bottom End -->
+</footer>
+<!-- Footer Area End Here -->
 
 
 

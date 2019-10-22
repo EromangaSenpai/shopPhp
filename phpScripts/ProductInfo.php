@@ -48,15 +48,16 @@ class ProductInfo
                 {
                     case 'smartphone':
                         $this->goodsArr['smartphones'][$n_smartphone] = " <div class=\"col-lg-3 mb-4 div-column-style\">
-                    <a href=$image_path>
+                    <a href='product_php.php?id=$id'>
                         <img src=$image_path class=\"img-thumbnail zoom\" style=\"background-color: $color; width: 304px; height:236px\" alt=\"Image\" width=\"304px\" height=\"236px\">
                         <div class=\"caption text-primary\">
                             <div class=\"vis-hidden\" style=\"visibility: hidden\">$id</div>
                            
-                            <p>$firm_name $product_name</p>
+                            <p class=\"mb-2 text-light\">$firm_name $product_name</p>
                             <hr>
-                            <p>Price: $price</p>
+                            <p class=\"mb-2 text-light\">Price: $price</p>
                             <hr>
+                            <br>
                              </a>
                             <button type=\"button\" class=\"btn btn-outline-primary btn-block\" onclick=\"AddToCart(this, productId = $id)\">Add to cart</button>
                         </div>

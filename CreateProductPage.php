@@ -1,13 +1,16 @@
 <?php
-session_start();
+if (!isset($_SESSION))
+    session_start();
+
 require 'phpScripts/db.php';
+
 if (!R::testConnection())
     exit ('Нет соединения с базой данных');
 
 if(isset($_SESSION['key'])) {
-    $user = R::findOne('users', 'email = ?', array($_POST['email']));
-    if($user->root !== 'admin')
-        header("Location: 403.php");
+    $user = R::findOne('users', 'email = ?', array($_SESSION['email']));
+
+
 
 
     $info = '';
@@ -22,6 +25,7 @@ if(isset($_SESSION['key'])) {
             $goods = R::dispense('goods');
             $goods->image_path = 'img' . '/' . $uniq . '_' . $name;
             $goods->description = $_POST['description'];
+            $goods->shortdescription = $_POST['shortdescription'];
             $goods->productname = $_POST['product'];
             $goods->firmname = $_POST['firm'];
             $goods->color = $_POST['color'];
@@ -121,9 +125,15 @@ else
                 <label class="custom-file-label" for="customFile">Choose file</label>
             </div>
             <hr>
+        <div class="row form-group">
+            <div class="col-sm-12">
+                <label for="shortdesc" class="text-light">Short Description:</label>
+                <input value="" type="text" maxlength="100" name="shortdescription" class="form-control" id="shortdesc" placeholder="Short description" required>
+            </div>
+        </div>
         <div class="form-group">
             <label for="textarea" class="text-light">Description:</label>
-            <textarea maxlength="345" name="description" class="form-control" id="textarea" rows="3" placeholder="Product description" required></textarea>
+            <textarea maxlength="1000" name="description" class="form-control" id="textarea" rows="3" placeholder="Product description" required></textarea>
         </div>
         <hr>
         <div class="row form-group">

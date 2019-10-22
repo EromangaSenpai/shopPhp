@@ -1,3 +1,54 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: ASUS
+ * Date: 18.10.2019
+ * Time: 2:15
+ */
+require_once 'phpScripts/db.php';
+require_once 'phpScripts/UserInfo.php';
+require_once 'phpScripts/ServerInfo.php';
+
+if (!R::testConnection())
+    exit ('Нет соединения с базой данных');
+
+if (!isset($_SESSION))
+    session_start();
+
+$product = R::findOne('goods', 'id = ?', array($_GET['id']));
+
+if($product == null)
+    header('Location: MainPage.php');
+
+if(isset($_SESSION['key']))
+{
+    $userInfo = new UserInfo($_SESSION['key'], $_SESSION['email'], $_SESSION['name']);
+    $btn = $userInfo->IsAdmin();
+}
+else
+{
+    $userInfo = new UserInfo('','','');
+}
+$serverInfo = new ServerInfo;
+$text = "Catalog";
+if($serverInfo->IsMobile())
+{
+    $text = "";
+}
+
+$modal = $userInfo->ModalWindowType();
+$cartModal = $userInfo->ModalWindowCartType();
+$myCart = null;
+
+
+
+if(isset($_SESSION['savingCart'])) {
+    $myCart = $_SESSION['savingCart'];
+}
+
+
+?>
+
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -39,20 +90,99 @@
     <script src="js/vendor/modernizr-3.5.0.min.js"></script>
     <style>
         .my-background{
-            background: #536976;  /* fallback for old browsers */
-            background: -webkit-linear-gradient(to right, #292E49, #536976);  /* Chrome 10-25, Safari 5.1-6 */
+    background: #536976;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #292E49, #536976);  /* Chrome 10-25, Safari 5.1-6 */
             background: linear-gradient(to right, #292E49, #536976); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
         }
         .footer-background{
-            background: #aabdbd91;  /* fallback for old browsers */
-            background: -webkit-linear-gradient(to right, #7e888891, #536976);  /* Chrome 10-25, Safari 5.1-6 */
+    background: #aabdbd91;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #7e888891, #536976);  /* Chrome 10-25, Safari 5.1-6 */
             background: linear-gradient(to right, #7e888891, #536976); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
         }
     </style>
 </head>
 
 <body>
+
+<!-- Start Navbar -->
+<div class="pos-f-t">
+    <nav id="anchor" class="navbar navbar-dark bg-dark">
+        <div class="form-inline">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span> <?php echo $text?>
+            </button>
+            <?php if(!empty($btn)): echo $btn; endif;?>
+        </div>
+
+        <div class="form-inline">
+            <a href="#" class="mr-4" data-toggle="modal" data-target="#exampleModal"><?php if(!isset($_SESSION['key'])): echo 'Hello User'; else: echo $_SESSION['name']; endif;?></a>
+            <!--button class="btn btn-outline-success mr-sm-2">Compare</button-->
+            <button data-toggle="modal" data-target="#cartModal" class="btn btn-outline-success my-2 my-sm-0"><span><img src="fonts/icon_cart.svg" width="20px" height="20px"></span>
+                &nbsp;Cart &nbsp;<span class="badge badge-dark" id="cartCount"><?php if(isset($_SESSION['count'])): echo $_SESSION['count']; endif;?></span></button>
+        </div>
+
+
+
+
+        <!-- Cart Modal -->
+        <?php if(empty($cartModal)): echo "<div class=\"modal fade\" id=\"cartModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLongTitle\" aria-hidden=\"true\">
+  <div class=\"modal-dialog\" role=\"document\">
+    <div class=\"modal-content\">
+      <div class=\"modal-header\">
+        <h5 class=\"modal-title\" id=\"cartModal\">Add to cart</h5>
+        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">
+          <span aria-hidden=\"true\">&times;</span>
+        </button>
+      </div>
+      <div class=\"modal-body\">
+        <table class=\"table table-striped\" style=\"cursor: pointer\">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Product Name</th>
+                <th>Firm Name</th>
+                <th>Type</th>
+                <th>Count</th>
+            </tr>
+            </thead>
+            <tbody id=\"myCartTable\">
+                $myCart
+            </tbody>
+        </table>
+      </div>
+      <div class=\"modal-footer\">
+        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>
+        <form method='post' action='phpScripts/buy.php'>
+        <button onclick=\"buy()\" type=\"submit\" class=\"btn btn-primary\">Buy</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>"; endif;?>
+        <!--End Cart Modal -->
+
+
+        <!-- Cabinet Modal -->
+        <?php echo $modal?>
+        <!--End Cabinet Modal -->
+
+    </nav>
+
+    <div class="collapse" id="navbarToggleExternalContent">
+        <div class="bg-dark p-4">
+            <h4 class="text-white">Products</h4>
+            <hr>
+            <ul>
+                <li><a href="Smartphones.php">Smartphones</a></li>
+                <li><a href="Laptops.php">Laptops</a></li>
+                <li><a href="Tvs.php">TVs</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- End Navbar-->
 
 <!-- Main Wrapper Start Here -->
 <div class="wrapper my-background">
@@ -67,32 +197,34 @@
                     <div class="col-lg-5 mb-all-40">
                         <!-- Thumbnail Large Image start -->
                         <div class="tab-content">
-                            <div id="thumb1" class="tab-pane fade show active">
-                                <a data-fancybox="images" href="img/products/35.jpg"><img src="img/products/35.jpg" alt="product-view"></a>
+                            <?php
+                            echo "<div id=\"thumb1\" class=\"tab-pane fade show active\">
+                                <a data-fancybox=\"images\" href=\"$product->image_path\"><img src=\"$product->image_path\" alt=\"product-view\"></a>
                             </div>
-                            <div id="thumb2" class="tab-pane fade">
-                                <a data-fancybox="images" href="img/products/13.jpg"><img src="img/products/13.jpg" alt="product-view"></a>
+                            <div id=\"thumb2\" class=\"tab-pane fade\">
+                                <a data-fancybox=\"images\" href=\"$product->image_path\"><img src=\"$product->image_path\" alt=\"product-view\"></a>
                             </div>
-                            <div id="thumb3" class="tab-pane fade">
-                                <a data-fancybox="images" href="img/products/15.jpg"><img src="img/products/15.jpg" alt="product-view"></a>
+                            <div id=\"thumb3\" class=\"tab-pane fade\">
+                                <a data-fancybox=\"images\" href=\"$product->image_path\"><img src=\"$product->image_path\" alt=\"product-view\"></a>
                             </div>
-                            <div id="thumb4" class="tab-pane fade">
-                                <a data-fancybox="images" href="img/products/4.jpg"><img src="img/products/4.jpg" alt="product-view"></a>
+                            <div id=\"thumb4\" class=\"tab-pane fade\">
+                                <a data-fancybox=\"images\" href=\"$product->image_path\"><img src=\"$product->image_path\" alt=\"product-view\"></a>
                             </div>
-                            <div id="thumb5" class="tab-pane fade">
-                                <a data-fancybox="images" href="img/products/5.jpg"><img src="img/products/5.jpg" alt="product-view"></a>
-                            </div>
+                            <div id=\"thumb5\" class=\"tab-pane fade\">
+                                <a data-fancybox=\"images\" href=\"$product->image_path\"><img src=\"$product->image_path\" alt=\"product-view\"></a>
+                            </div>"
+                            ?>
                         </div>
                         <!-- Thumbnail Large Image End -->
                         <!-- Thumbnail Image End -->
                         <div class="product-thumbnail mt-15">
-                            <div class="thumb-menu owl-carousel nav tabs-area" role="tablist">
-                                <a class="active" data-toggle="tab" href="#thumb1"><img src="img/products/35.jpg" alt="product-thumbnail"></a>
-                                <a data-toggle="tab" href="#thumb2"><img src="img/products/13.jpg" alt="product-thumbnail"></a>
-                                <a data-toggle="tab" href="#thumb3"><img src="img/products/15.jpg" alt="product-thumbnail"></a>
-                                <a data-toggle="tab" href="#thumb4"><img src="img/products/4.jpg" alt="product-thumbnail"></a>
-                                <a data-toggle="tab" href="#thumb5"><img src="img/products/5.jpg" alt="product-thumbnail"></a>
-                            </div>
+                            <?php echo "<div class=\"thumb-menu owl-carousel nav tabs-area\" role=\"tablist\">
+                                <a class=\"active\" data-toggle=\"tab\" href=\"#thumb1\"><img src=\"$product->image_path\" alt=\"product-thumbnail\"></a>
+                                <a data-toggle=\"tab\" href=\"#thumb2\"><img src=\"$product->image_path\" alt=\"product-thumbnail\"></a>
+                                <a data-toggle=\"tab\" href=\"#thumb3\"><img src=\"$product->image_path\" alt=\"product-thumbnail\"></a>
+                                <a data-toggle=\"tab\" href=\"#thumb4\"><img src=\"$product->image_path\" alt=\"product-thumbnail\"></a>
+                                <a data-toggle=\"tab\" href=\"#thumb5\"><img src=\"$product->image_path\" alt=\"product-thumbnail\"></a>
+                            </div>"?>
                         </div>
                         <!-- Thumbnail image end -->
                     </div>
@@ -100,7 +232,7 @@
                     <!-- Thumbnail Description Start -->
                     <div class="col-lg-7">
                         <div class="thubnail-desc fix">
-                            <h3 class="text-light" class="product-header">Google Pixel 4</h3>
+                            <h3 class="text-light" class="product-header"><?php echo $product->firmname.' '.$product->productname?></h3>
                             <div class="rating-summary fix mtb-10">
                                 <div class="rating">
                                     <i class="fa fa-star"></i>
@@ -115,9 +247,9 @@
                                 </div>
                             </div>
                             <div class="pro-price mtb-30">
-                                <p class="d-flex align-items-center"><span class="price text-light">$1199.00</span></p>
+                                <p class="d-flex align-items-center"><span class="price text-light">$<?php echo $product->price?></span></p>
                             </div>
-                            <p class="mb-20 pro-desc-details text-light">New phone from google company. Best smartphone on android system in 2019</p>
+                            <p class="mb-20 pro-desc-details text-light"><?php echo $product->shortdescription ?></p>
 
 
                             <div class="box-quantity d-flex hot-product2">
@@ -161,17 +293,7 @@
                 <!-- Product Thumbnail Tab Content Start -->
                 <div class="tab-content thumb-content border-dark bg-dark">
                     <div id="dtail" class="tab-pane fade show active">
-                        <p class="text-light">Weight: 162g
-                            Dimensions: 68.8 mm x 147.1 mm x 8.2mm
-                            OS: Android 10
-                            Screen size: 5.7-inch
-                            Resolution: Full HD+
-                            CPU: Snapdragon 855
-                            RAM: 6GB
-                            Storage: 64/128GB
-                            Battery: 2,800mAh
-                            Rear camera: 16MP + 12MP
-                            Front camera: 8MP</p>
+                        <p class="text-light"><?php echo $product->description?></p>
                     </div>
 
 
@@ -185,9 +307,9 @@
 
                                 It's the successor to the Google Pixel 3, but the upgrades are minimal. Google hasn't tried to break the mold with the Pixel 4, instead playing things safe with an incremental update.
 
-                                It feels like Google is resting on its laurels a little, hoping the strong photography showing from the Pixel 3 continues to intrigue users and push them to check out the new Pixel 4 – and while there are some clear gains here photography-wise, those looking for worthwhile upgrades across the board will be less impressed.
+It feels like Google is resting on its laurels a little, hoping the strong photography showing from the Pixel 3 continues to intrigue users and push them to check out the new Pixel 4 – and while there are some clear gains here photography-wise, those looking for worthwhile upgrades across the board will be less impressed.
 
-                                The good news is that the Pixel 4's starting price is lower than that of the Pixel 3, which could help to compensate for any perceived lack of innovation when it goes on sale.</p>
+The good news is that the Pixel 4's starting price is lower than that of the Pixel 3, which could help to compensate for any perceived lack of innovation when it goes on sale.</p>
                             <br>
                             <ul class="review-list">
                                 <!-- Single Review List Start -->
@@ -306,7 +428,7 @@
                 <div class="col-xl-7 col-lg-7 ml-auto mr-auto col-md-8">
                     <div class="news-desc text-center mb-30">
                         <h3>Subscribe!</h3>
-                        <p>Be nice guys and subscribe to get distribution</p>
+                        <p>Be nice guys and subscribe to get unuseful distribution</p>
                     </div>
                     <div class="newsletter-box">
                         <form action="#">
