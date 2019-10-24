@@ -24,9 +24,9 @@ if($product == null)
     header('Location: MainPage.php');
 
 $_SESSION['productId'] = $_GET['id'];
-$tmp = $_GET['id'];
-$reviews = R::findAll('review', "WHERE product_id = '$tmp' ");
-unset($tmp);
+
+$reviews = array();
+
 if(isset($_SESSION['key']))
 {
     $userInfo = new UserInfo($_SESSION['key'], $_SESSION['email'], $_SESSION['name']);
@@ -53,70 +53,7 @@ if(isset($_SESSION['savingCart'])) {
     $myCart = $_SESSION['savingCart'];
 }
 
-function GetReviews($reviews)
-{
-    if(!empty($reviews))
-    {
-        $n = 0;
-        $reviewsArr = array();
-        foreach($reviews as $item)
-        {
-            $id = $item->id;
-            $nickname = $item->nickname;
-            $product_id = $item->product_id;
-            $text = $item->text;
-            $date = $item->date;
 
-            $reviewsArr[$n] = "<div class=\"review border-default universal-padding\">
-                            <div class=\"group-title\">
-                                <h2 class=\"text-light\">$nickname</h2>
-                            </div>
-                            <p class=\"text-light\">$text</p>
-                            <br>
-                            <ul class=\"review-list\">
-                                <!-- Single Review List Start -->
-                                <li>
-                                    <span class=\"text-light\">Quality</span>
-                                    <i class=\"fa fa-star\"></i>
-                                    <i class=\"fa fa-star\"></i>
-                                    <i class=\"fa fa-star\"></i>
-                                    <i class=\"fa fa-star\"></i>
-                                    <i class=\"fa fa-star-o\"></i>
-                                    <label class=\"text-light\">Good</label>
-                                </li>
-                                <!-- Single Review List End -->
-                                <!-- Single Review List Start -->
-                                <li>
-                                    <span class=\"text-light\">Price</span>
-                                    <i class=\"fa fa-star\"></i>
-                                    <i class=\"fa fa-star\"></i>
-                                    <i class=\"fa fa-star-o\"></i>
-                                    <i class=\"fa fa-star-o\"></i>
-                                    <i class=\"fa fa-star-o\"></i>
-                                    <label class=\"text-light\">Review by $nickname</label>
-                                </li>
-                                <!-- Single Review List End -->
-                                <!-- Single Review List Start -->
-                                <li>
-                                    <span class=\"text-light\">Value</span>
-                                    <i class=\"fa fa-star\"></i>
-                                    <i class=\"fa fa-star\"></i>
-                                    <i class=\"fa fa-star\"></i>
-                                    <i class=\"fa fa-star\"></i>
-                                    <i class=\"fa fa-star-o\"></i>
-                                    <label class=\"text-light\">Posted on $date</label>
-                                </li>
-                                <!-- Single Review List End -->
-                            </ul>
-                        </div><br>";
-            $n++;
-        }
-        return $reviewsArr;
-    }
-    return null;
-}
-
-$arr = GetReviews($reviews);
 ?>
 
 <!doctype html>
@@ -369,11 +306,58 @@ $arr = GetReviews($reviews);
 
                     <div id="review" class="tab-pane fade">
                         <!-- Reviews Start -->
-                        <?php foreach($arr as $item): echo $item; endforeach; ?>
+                        <div class="review border-default universal-padding">
+                            <div class="group-title">
+                                <h2 class="text-light">Goldshady</h2>
+                            </div>
+                            <p class="text-light">The Google Pixel 4 arrives alongside its larger sibling, the Google Pixel 4 XL, and offers up a cocktail of flagship photography features, including machine learning and other AI wizardry
+
+                                It's the successor to the Google Pixel 3, but the upgrades are minimal. Google hasn't tried to break the mold with the Pixel 4, instead playing things safe with an incremental update.
+
+It feels like Google is resting on its laurels a little, hoping the strong photography showing from the Pixel 3 continues to intrigue users and push them to check out the new Pixel 4 – and while there are some clear gains here photography-wise, those looking for worthwhile upgrades across the board will be less impressed.
+
+The good news is that the Pixel 4's starting price is lower than that of the Pixel 3, which could help to compensate for any perceived lack of innovation when it goes on sale.</p>
+                            <br>
+                            <ul class="review-list">
+                                <!-- Single Review List Start -->
+                                <li>
+                                    <span class="text-light">Quality</span>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <label class="text-light">Good</label>
+                                </li>
+                                <!-- Single Review List End -->
+                                <!-- Single Review List Start -->
+                                <li>
+                                    <span class="text-light">Price</span>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <label class="text-light">Review by Goldshady</label>
+                                </li>
+                                <!-- Single Review List End -->
+                                <!-- Single Review List Start -->
+                                <li>
+                                    <span class="text-light">Value</span>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <label class="text-light">Posted on 10/10/19</label>
+                                </li>
+                                <!-- Single Review List End -->
+                            </ul>
+                        </div>
                         <!-- Reviews End -->
                         <!-- Reviews Start -->
                         <div class="review border-default universal-padding mt-30">
-                            <h2 class="review-title mb-30 text-light">You're reviewing: <br><span class="text-light"><?php echo $product->firmname.' '.$product->productname?></span></h2>
+                            <h2 class="review-title mb-30 text-light">You're reviewing: <br><span class="text-light">Google Pixel 4</span></h2>
                             <p class="review-mini-title text-light">your rating</p>
                             <ul class="review-list">
                                 <!-- Single Review List Start -->
@@ -451,7 +435,7 @@ $arr = GetReviews($reviews);
                         <p>Be nice guys and subscribe to get unuseful distribution</p>
                     </div>
                     <div class="newsletter-box">
-                        <form method="POST" action="phpScripts/Subscribe.php">
+                        <form action="#">
                             <input class="subscribe" placeholder="your email address" name="email" id="subscribe" type="text">
                             <button type="submit" class="submit">Subscribe!</button>
                         </form>
