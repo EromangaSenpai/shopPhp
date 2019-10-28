@@ -75,49 +75,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/admin-pages.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <title>Admin Page</title>
-    <style>
-        .background3{
-            background: #780206;  /* fallback for old browsers */
-            background: -webkit-linear-gradient(to top, #061161, #780206);  /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(to top, #061161, #780206); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        }
-        hr {
-            /* установим цвет и высоту */
-            border:1px solid rgb(211, 211, 211);
-            border-bottom-width: 0;
-        }
-        #navbar {
-            background-color: #333;
-            opacity: 0.6;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            display: block;
-            transition: top 0.3s;
-        }
 
-        #navbar a {
-            float: left;
-            display: block;
-            color: #f2f2f2;
-            text-align: center;
-            padding: 15px;
-            text-decoration: none;
-            font-size: 17px;
-        }
-
-        #navbar a:hover {
-
-        }
-        toright{
-            margin-left: 40px;
-        }
-
-    </style>
 </head>
 <body class="background3" style="height: 140vh">
 
@@ -125,6 +88,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     <a href="CreateProductPage.php" class="text-light">Create</a>
     <a href="ProductPage.php" class="text-light">Update</a>
     <a href="DeleteProductPage.php" class="text-light">Delete</a>
+    <a href="SendMail.php" class="text-light">Mail</a>
     <a style="float: right" class="text-light" href="MainPage.php">Go back</a>
 </div>
 

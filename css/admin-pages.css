@@ -1,0 +1,36 @@
+.background3{
+    background: #780206;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #061161, #780206);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #061161, #780206); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+hr {
+    /* установим цвет и высоту */
+    border:1px solid rgb(211, 211, 211);
+    border-bottom-width: 0;
+}
+#navbar {
+    background-color: #333;
+
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: block;
+    transition: top 0.3s;
+}
+
+#navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 15px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+#navbar a:hover {
+
+}
+toright{
+    margin-left: 40px;
+}

@@ -24,9 +24,11 @@ if($product == null)
     header('Location: MainPage.php');
 
 $_SESSION['productId'] = $_GET['id'];
+
 $tmp = $_GET['id'];
 $reviews = R::findAll('review', "WHERE product_id = '$tmp' ");
 unset($tmp);
+
 if(isset($_SESSION['key']))
 {
     $userInfo = new UserInfo($_SESSION['key'], $_SESSION['email'], $_SESSION['name']);
@@ -37,10 +39,10 @@ else
     $userInfo = new UserInfo('','','');
 }
 $serverInfo = new ServerInfo;
-$text = "Catalog";
+$textM = "Catalog";
 if($serverInfo->IsMobile())
 {
-    $text = "";
+    $textM = "";
 }
 
 $modal = $userInfo->ModalWindowType();
@@ -66,6 +68,152 @@ function GetReviews($reviews)
             $product_id = $item->product_id;
             $text = $item->text;
             $date = $item->date;
+            $quality = $item->quality;
+            $starsPrice = $item->price;
+            $starsAverage = $item->average;
+            $starsQuality = "";
+            $textQuality = "";
+
+            switch ($quality) {
+                case 1:
+                    $starsQuality = "<i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star-o\"></i>
+                                    <i class=\"fa fa-star-o\"></i>
+                                    <i class=\"fa fa-star-o\"></i>
+                                    <i class=\"fa fa-star-o\"></i>";
+                    $textQuality = 'Bad';
+                    break;
+
+                case 2:
+                    $starsQuality = "<i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star-o\"></i>
+                                    <i class=\"fa fa-star-o\"></i>
+                                    <i class=\"fa fa-star-o\"></i>";
+                    $textQuality = 'Poor';
+                    break;
+
+                case 3:
+                    $starsQuality = "<i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star-o\"></i>
+                                    <i class=\"fa fa-star-o\"></i>";
+                    $textQuality = 'Normal';
+                    break;
+
+                case 4:
+                    $starsQuality = "<i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star-o\"></i>";
+                    $textQuality = 'Good';
+                    break;
+
+                case 5:
+                    $starsQuality = "<i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>";
+                    $textQuality = 'The Best';
+                    break;
+            }
+
+            switch ($starsPrice) {
+                case 1:
+                    $starsPrice = "<i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star-o\"></i>
+                                    <i class=\"fa fa-star-o\"></i>
+                                    <i class=\"fa fa-star-o\"></i>
+                                    <i class=\"fa fa-star-o\"></i>";
+                   
+                    break;
+
+                case 2:
+                    $starsPrice = "<i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star-o\"></i>
+                                    <i class=\"fa fa-star-o\"></i>
+                                    <i class=\"fa fa-star-o\"></i>";
+                    
+                    break;
+
+                case 3:
+                    $starsPrice = "<i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star-o\"></i>
+                                    <i class=\"fa fa-star-o\"></i>";
+                    
+                    break;
+
+                case 4:
+                    $starsPrice = "<i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star-o\"></i>";
+                    
+                    break;
+
+                case 5:
+                    $starsPrice = "<i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>";
+                    
+                    break;
+            }
+
+            switch ($starsAverage) {
+                case 1:
+                    $starsAverage = "<i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star-o\"></i>
+                                    <i class=\"fa fa-star-o\"></i>
+                                    <i class=\"fa fa-star-o\"></i>
+                                    <i class=\"fa fa-star-o\"></i>";
+
+                    break;
+
+                case 2:
+                    $starsAverage = "<i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star-o\"></i>
+                                    <i class=\"fa fa-star-o\"></i>
+                                    <i class=\"fa fa-star-o\"></i>";
+
+                    break;
+
+                case 3:
+                    $starsAverage = "<i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star-o\"></i>
+                                    <i class=\"fa fa-star-o\"></i>";
+
+                    break;
+
+                case 4:
+                    $starsAverage = "<i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star-o\"></i>";
+
+                    break;
+
+                case 5:
+                    $starsAverage = "<i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>
+                                    <i class=\"fa fa-star\"></i>";
+
+                    break;
+            }
 
             $reviewsArr[$n] = "<div class=\"review border-default universal-padding\">
                             <div class=\"group-title\">
@@ -77,33 +225,21 @@ function GetReviews($reviews)
                                 <!-- Single Review List Start -->
                                 <li>
                                     <span class=\"text-light\">Quality</span>
-                                    <i class=\"fa fa-star\"></i>
-                                    <i class=\"fa fa-star\"></i>
-                                    <i class=\"fa fa-star\"></i>
-                                    <i class=\"fa fa-star\"></i>
-                                    <i class=\"fa fa-star-o\"></i>
-                                    <label class=\"text-light\">Good</label>
+                                    $starsQuality
+                                    <label class=\"text-light\">$textQuality</label>
                                 </li>
                                 <!-- Single Review List End -->
                                 <!-- Single Review List Start -->
                                 <li>
                                     <span class=\"text-light\">Price</span>
-                                    <i class=\"fa fa-star\"></i>
-                                    <i class=\"fa fa-star\"></i>
-                                    <i class=\"fa fa-star-o\"></i>
-                                    <i class=\"fa fa-star-o\"></i>
-                                    <i class=\"fa fa-star-o\"></i>
+                                    $starsPrice
                                     <label class=\"text-light\">Review by $nickname</label>
                                 </li>
                                 <!-- Single Review List End -->
                                 <!-- Single Review List Start -->
                                 <li>
-                                    <span class=\"text-light\">Value</span>
-                                    <i class=\"fa fa-star\"></i>
-                                    <i class=\"fa fa-star\"></i>
-                                    <i class=\"fa fa-star\"></i>
-                                    <i class=\"fa fa-star\"></i>
-                                    <i class=\"fa fa-star-o\"></i>
+                                    <span class=\"text-light\">Average</span>
+                                    $starsAverage
                                     <label class=\"text-light\">Posted on $date</label>
                                 </li>
                                 <!-- Single Review List End -->
@@ -120,7 +256,7 @@ $arr = GetReviews($reviews);
 ?>
 
 <!doctype html>
-<html class="no-js" lang="zxx">
+<html class="no-js" lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -156,9 +292,16 @@ $arr = GetReviews($reviews);
     <!-- Responsive css -->
     <link rel="stylesheet" href="css/responsive.css">
 
+
     <!-- Modernizer js -->
     <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+
     <style>
+        hr {
+            border:1px solid rgb(211, 211, 211);
+            border-bottom-width: 0;
+        }
+
         .my-background{
     background: #536976;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #292E49, #536976);  /* Chrome 10-25, Safari 5.1-6 */
@@ -180,7 +323,7 @@ $arr = GetReviews($reviews);
     <nav id="anchor" class="navbar navbar-dark bg-dark">
         <div class="form-inline">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span> <?php echo $text?>
+                <span class="navbar-toggler-icon"></span> <?php echo $textM?>
             </button>
             <?php if(!empty($btn)): echo $btn; endif;?>
         </div>
@@ -213,7 +356,7 @@ $arr = GetReviews($reviews);
                 <th>Product Name</th>
                 <th>Firm Name</th>
                 <th>Type</th>
-                <th>Count</th>
+                <th>Price</th>
             </tr>
             </thead>
             <tbody id=\"myCartTable\">
@@ -254,9 +397,21 @@ $arr = GetReviews($reviews);
 
 <!-- End Navbar-->
 
+
 <!-- Main Wrapper Start Here -->
 <div class="wrapper my-background">
 
+    <!-- Breadcrumb start -->
+    <br>
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-dark">
+                <li class="breadcrumb-item"><a class="text-light" href="MainPage.php">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Product</li>
+            </ol>
+        </nav>
+    </div>
+    <!-- Breadcrumb end -->
 
     <!-- Product Thumbnail Start -->
     <div class="main-product-thumbnail ptb-100 ptb-sm-60">
@@ -323,12 +478,12 @@ $arr = GetReviews($reviews);
 
 
                             <div class="box-quantity d-flex hot-product2">
-                                <form action="#">
-                                    <input class="quantity mr-15" type="number" min="1" value="1">
+                                <form method="POST" action="phpScripts/addToCart.php">
+                                    <input id="product-counter" name="count" class="quantity mr-15" type="number" min="1" value="1">
                                 </form>
                                 <div class="pro-actions">
                                     <div class="actions-primary ">
-                                        <a href="cart.html" title="" data-original-title="Add to Cart"> + Add To Cart</a>
+                                        <a style="cursor: pointer" onclick="AddToCart(this, <?php echo $_GET['id'] ?>, document.getElementById('product-counter').value)" data-original-title="Add to Cart"> + Add To Cart</a>
                                     </div>
                                     <div class="actions-secondary">
                                         <a href="compare.html" title="" data-original-title="Compare"><i class="lnr lnr-sync"></i> <span>Add To Compare</span></a>
@@ -369,47 +524,49 @@ $arr = GetReviews($reviews);
 
                     <div id="review" class="tab-pane fade">
                         <!-- Reviews Start -->
-                        <?php foreach($arr as $item): echo $item; endforeach; ?>
+                        <?php if(!empty($arr)): foreach($arr as $item): echo $item; endforeach; endif; ?>
                         <!-- Reviews End -->
                         <!-- Reviews Start -->
                         <div class="review border-default universal-padding mt-30">
                             <h2 class="review-title mb-30 text-light">You're reviewing: <br><span class="text-light"><?php echo $product->firmname.' '.$product->productname?></span></h2>
                             <p class="review-mini-title text-light">your rating</p>
+                            <form autocomplete="on" action="phpScripts/AddReview.php" method="POST">
                             <ul class="review-list">
                                 <!-- Single Review List Start -->
                                 <li>
-                                    <span class="text-light">Quality</span>
-                                    <i id="star0-1" onclick="setRating(this, 1)" class="fa fa-star"></i>
-                                    <i id="star0-2" onclick="setRating(this, 2)" class="fa fa-star"></i>
-                                    <i id="star0-3" onclick="setRating(this, 3)" class="fa fa-star"></i>
-                                    <i id="star0-4" onclick="setRating(this, 4)" class="fa fa-star-o"></i>
-                                    <i id="star0-5" onclick="setRating(this, 5)" class="fa fa-star-o"></i>
+                                    <span class="text-light">Quality&nbsp;</span>
+                                    <input type="radio" name="quality" value="1" id="star0-1" required>
+                                    <label title="bad" for="star0-1"></label>
+                                    <input type="radio" name="quality" value="2" id="star0-2" required>
+                                    <label title="poor" for="star0-2"></label>
+                                    <input type="radio" name="quality" value="3" id="star0-3" required>
+                                    <label title="normal" for="star0-3"></label>
+                                    <input type="radio" name="quality" value="4" id="star0-4" required>
+                                    <label title="good" for="star0-4"></label>
+                                    <input type="radio" name="quality" value="5" id="star0-5" required>
+                                    <label title="The best" for="star0-5"></label>
                                 </li>
                                 <!-- Single Review List End -->
                                 <!-- Single Review List Start -->
+                                <br>
                                 <li>
-                                    <span class="text-light">price</span>
-                                    <i id="star1-1" onclick="setRating(this, 1)" class="fa fa-star"></i>
-                                    <i id="star1-2" onclick="setRating(this, 2)" class="fa fa-star"></i>
-                                    <i id="star1-3" onclick="setRating(this, 3)" class="fa fa-star-o"></i>
-                                    <i id="star1-4" onclick="setRating(this, 4)" class="fa fa-star-o"></i>
-                                    <i id="star1-5" onclick="setRating(this, 5)" class="fa fa-star-o"></i>
-                                </li>
-                                <!-- Single Review List End -->
-                                <!-- Single Review List Start -->
-                                <li>
-                                    <span class="text-light">value</span>
-                                    <i id="star2-1" onclick="setRating(this, 1)" class="fa fa-star"></i>
-                                    <i id="star2-2" onclick="setRating(this, 2)" class="fa fa-star"></i>
-                                    <i id="star2-3" onclick="setRating(this, 3)" class="fa fa-star"></i>
-                                    <i id="star2-4" onclick="setRating(this, 4)" class="fa fa-star"></i>
-                                    <i id="star2-5" onclick="setRating(this, 5)" class="fa fa-star-o"></i>
+                                    <span class="text-light">Price&nbsp;</span>
+                                    <input type="radio" name="price" value="1" id="star1-1" required>
+                                    <label title="bad" for="star1-1"></label>
+                                    <input type="radio" name="price" value="2" id="star1-2" required>
+                                    <label title="poor" for="star1-2"></label>
+                                    <input type="radio" name="price" value="3" id="star1-3" required>
+                                    <label title="normal" for="star1-3"></label>
+                                    <input type="radio" name="price" value="4" id="star1-4" required>
+                                    <label title="good" for="star1-4"></label>
+                                    <input type="radio" name="price" value="5" id="star1-5" required>
+                                    <label title="The best" for="star1-5"></label>
                                 </li>
                                 <!-- Single Review List End -->
                             </ul>
                             <!-- Reviews Field Start -->
                             <div class="riview-field mt-40">
-                                <form autocomplete="on" action="phpScripts/AddReview.php" method="POST">
+
                                     <div class="form-group">
                                         <label class="req text-light" for="sure-name">Nickname</label>
                                         <input name="nickname" type="text" class="form-control" id="sure-name" required="required">
@@ -542,41 +699,9 @@ $arr = GetReviews($reviews);
 <script src="js/plugins.js"></script>
 <!-- Main activaion js -->
 <script src="js/main.js"></script>
+<!-- Response for adding to cart and buying products -->
+<script src="js/Buy.js"></script>
 
-<script>
-    function setRating(elem, stars) {
-        switch (stars) {
-            case 1:
-                elem.classList.remove('fa fa-star-o');
-                elem.classList.add('fa fa-star');
-                document.getElementById('star0-2').classList.remove('fa fa-star');
-                document.getElementById('star0-2').classList.add('fa fa-star-o');
-                document.getElementById('star0-3').classList.remove('fa fa-star');
-                document.getElementById('star0-3').classList.add('fa fa-star-o');
-                document.getElementById('star0-4').classList.remove('fa fa-star');
-                document.getElementById('star0-4').classList.add('fa fa-star-o');
-                document.getElementById('star0-5').classList.remove('fa fa-star');
-                document.getElementById('star0-5').classList.add('fa fa-star-o');
-                break;
-            case 2:
-                elem.classList.remove('fa fa-star-o');
-                elem.classList.add('fa fa-star');
-                break;
-            case 3:
-                day = "Tuesday";
-                break;
-            case 4:
-                day = "Wednesday";
-                break;
-            case 5:
-                day = "Thursday";
-                break;
-
-        }
-
-
-    }
-</script>
 </body>
 
 </html>

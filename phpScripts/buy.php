@@ -1,9 +1,24 @@
 <?php
 session_start();
-$cartArr = explode('/', $_SESSION['id']);
-for($i = 0; $i < $cartArr.count(); $i++)
+require_once 'db.php';
+if($_SESSION['key'])
 {
-    $item = R::load('goods', (int)$cartArr[$i]);
-    $item->amount -= 1;
+    $cartArr = explode('/', $_SESSION['savesId']);
+    for($i = 0; $i < count($cartArr); $i++)
+    {
+        $item = R::load('goods', (int)$cartArr[$i]);
+        if($item->amount > 0)
+        {
+            $item->amount -= 1;
+        }
+        R::store($item);
+    }
+    $_SESSION['id'] = '';
+
+    unset($_SESSION['savingCart']);
+    unset($_SESSION['count']);
+    unset($_SESSION['savesId']);
+    header('Location: ../MainPage.php');
 }
-$_SESSION['id'] = '';
+else
+    header('Location: ../MainPage.php');

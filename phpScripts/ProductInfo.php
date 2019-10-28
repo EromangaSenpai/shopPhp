@@ -59,7 +59,7 @@ class ProductInfo
                             <hr>
                             <br>
                              </a>
-                            <button type=\"button\" class=\"btn btn-outline-primary btn-block\" onclick=\"AddToCart(this, productId = $id)\">Add to cart</button>
+                            <button type=\"button\" class=\"btn btn-outline-primary btn-block\" onclick=\"AddToCart(this, productId = $id, 1)\">Add to cart</button>
                         </div>
                    
                 </div>";
@@ -79,7 +79,7 @@ class ProductInfo
                             <hr>
                             <br>
                             </a>
-                            <button type=\"button\" class=\"btn btn-outline-primary btn-block\" onclick=\"AddToCart(this productId = $id)\">Add to cart</button>
+                            <button type=\"button\" class=\"btn btn-outline-primary btn-block\" onclick=\"AddToCart(this, productId = $id, 1)\">Add to cart</button>
                         </div>
                     
                 </div>";
@@ -99,7 +99,7 @@ class ProductInfo
                             <hr>
                             <br>
                             </a>
-                            <button type=\"button\" class=\"btn btn-outline-primary btn-block\" onclick=\"AddToCart(this productId = $id)\">Add to cart</button>
+                            <button type=\"button\" class=\"btn btn-outline-primary btn-block\" onclick=\"AddToCart(this, productId = $id, 1)\">Add to cart</button>
                         </div>
                     
                 </div>";

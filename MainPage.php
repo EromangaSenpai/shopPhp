@@ -66,48 +66,7 @@ if(isset($_SESSION['savingCart'])) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
     <script src="js/jsslider.min.js" type="text/javascript"></script>
     <script src="js/jsslider.js" type="text/javascript"></script>
-    <script>
-        function buy() {
-            alert('You buy all this shit');
-            document.location = "MainPage.php";
-        }
-
-        function funcBefore() {
-            console.log('Wait pls');
-        }
-
-        function funcSuccess(data) {
-            alert('eee boy' + data);
-        }
-
-        function AddToCart(elem, productId) {
-            var counter = 0;
-
-            var textHtml = document.getElementById('cartCount').innerHTML;
-            if(textHtml == "")
-            {
-                counter += 1;
-            }
-            else
-            {
-                var counter = parseInt(document.getElementById('cartCount').innerText);
-                counter += 1;
-            }
-
-            document.getElementById('cartCount').innerHTML = counter;
-
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("myCartTable").innerHTML += this.responseText;
-                    alert('Product was add to cart');
-                }
-            };
-            xmlhttp.open("GET", "phpScripts/addToCart.php?id=" + productId + "&count=" + counter, true);
-            xmlhttp.send();
-
-        }
-    </script>
+    <script src="js/Buy.js"></script>
 
         <style>
             hr {
@@ -162,6 +121,7 @@ if(isset($_SESSION['savingCart'])) {
             <?php if(!empty($btn)): echo $btn; endif;?>
         </div>
 
+
         <div class="form-inline">
             <a href="#" class="mr-4" data-toggle="modal" data-target="#exampleModal"><?php if(!isset($_SESSION['key'])): echo 'Hello User'; else: echo $_SESSION['name']; endif;?></a>
             <!--button class="btn btn-outline-success mr-sm-2">Compare</button-->
@@ -190,7 +150,7 @@ if(isset($_SESSION['savingCart'])) {
                 <th>Product Name</th>
                 <th>Firm Name</th>
                 <th>Type</th>
-                <th>Count</th>
+                <th>Price</th>
             </tr>
             </thead>
             <tbody id=\"myCartTable\">
@@ -215,16 +175,152 @@ if(isset($_SESSION['savingCart'])) {
         <!--End Cabinet Modal -->
 
     </nav>
-
+    <!-- Categories -->
     <div class="collapse" id="navbarToggleExternalContent">
         <div class="bg-dark p-4">
             <h4 class="text-white">Products</h4>
-            <hr>
+            <hr><br>
             <ul>
                 <li><a href="Smartphones.php">Smartphones</a></li>
                 <li><a href="Laptops.php">Laptops</a></li>
                 <li><a href="Tvs.php">TVs</a></li>
             </ul>
+            <br><hr><br>
+            <!-- Categories -->
+            <!-- Searcher -->
+            <!--form class="form-inline my-2 my-lg-0">
+                <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form-->
+            <form method="GET" action="">
+                <div class="row form-group mb-5">
+                    <div class="col-sm-12">
+                        <input name="search" class="form-control mr-sm-2" type="search" placeholder="I am looking for..." aria-label="Search">
+                    </div>
+                </div>
+
+            <!-- Searcher -->
+            <hr><br>
+
+            <!-- First checkbox row -->
+            <div class="row mb-5">
+                <div class="col-sm-3">
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" value="" id="checkbox1">
+                        <label class="custom-control-label text-light" for="checkbox1">
+                            Apple
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" value="" id="checkbox2">
+                        <label class="custom-control-label text-light" for="checkbox1">
+                            Google
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" value="" id="checkbox3">
+                        <label class="custom-control-label text-light" for="checkbox1">
+                            Xiaomi
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" value="" id="checkbox4">
+                        <label class="custom-control-label text-light" for="checkbox1">
+                            Meizu
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- First checkbox row -->
+
+            <!-- Second checkbox row -->
+            <div class="row mb-5">
+                <div class="col-sm-3">
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" value="" id="checkbox5">
+                        <label class="custom-control-label text-light" for="checkbox5">
+                            HP
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" value="" id="checkbox6">
+                        <label class="custom-control-label text-light" for="checkbox6">
+                            Lenovo
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" value="" id="checkbox7">
+                        <label class="custom-control-label text-light" for="checkbox7">
+                           Huawei
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" value="" id="checkbox8">
+                        <label class="custom-control-label text-light" for="checkbox8">
+                            Samsung
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- Second checkbox row -->
+
+
+            <!-- Third checkbox row -->
+            <div class="row mb-5">
+                <div class="col-sm-3">
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" value="" id="checkbox9">
+                        <label class="custom-control-label text-light" for="checkbox9">
+                            Asus
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" value="" id="checkbox10">
+                        <label class="custom-control-label text-light" for="checkbox10">
+                           Acer
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" value="" id="checkbox11">
+                        <label class="custom-control-label text-light" for="checkbox11">
+                            MSI
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" value="" id="checkbox12">
+                        <label class="custom-control-label text-light" for="checkbox12">
+                            Razer
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- Third checkbox row -->
+
+            <div class="row">
+                <div class="col-sm">
+                    <button type="button" class="btn btn-outline-success">Searching</button>
+                </div>
+            </div>
+            </form>
+
         </div>
     </div>
 </div>
@@ -321,9 +417,9 @@ if(isset($_SESSION['savingCart'])) {
                         <h3 class="footer-title">Information</h3>
                         <div class="footer-content">
                             <ul class="footer-list">
-                                <li><a href="about.html">About Us</a></li>
+                                <li><a href="#">About Us</a></li>
                                 <li><a href="#">Delivery info</a></li>
-                                <li><a href="contact.html">Private Policy</a></li>
+                                <li><a href="#">Private Policy</a></li>
                                 <li><a href="#">FAQ</a></li>
                                 <li><a href="#">Return Policy</a></li>
                             </ul>

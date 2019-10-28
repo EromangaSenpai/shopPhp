@@ -11,6 +11,9 @@ if (!R::testConnection())
     $review->text = $_POST['text'];
     $date = date('Y-m-d');
     $review->date = $date;
+    $review->quality = $_POST['quality'];
+    $review->price = $_POST['price'];
+    $review->average = ($review->quality + $review->price) / 2;
     R::store($review);
     header('Location: ../product_php.php')
 

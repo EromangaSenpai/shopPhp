@@ -1,26 +1,20 @@
 <?php
-session_start();
+if (!isset($_SESSION))
+    session_start();
+
 require 'phpScripts/db.php';
+
 if (!R::testConnection())
     exit ('Нет соединения с базой данных');
 
+if(isset($_SESSION['key'])) {
 
-        $info = '';
-        $data = array();
-        $i = 0;
-        $goods = R::findAll('goods');
-        foreach ($goods as $item)
-        {
-            $data[$i] = " <tr onclick=\"GetId(this)\">
-                <td>$item->id</td>
-                <td>$item->productname</td>
-                <td>$item->firmname</td>
-                <td>$item->type</td>
-                <td>$item->amount</td>
-            </tr>";
+}
 
-           $i++;
-        }
+else
+{
+    header("Location: 403.php");
+}
 
 ?>
 
@@ -41,60 +35,40 @@ if (!R::testConnection())
 
 <div id="navbar">
     <a href="CreateProductPage.php" class="text-light">Create</a>
-    <a href="#" class="text-light">Update</a>
+    <a href="ProductPage.php" class="text-light">Update</a>
     <a href="DeleteProductPage.php" class="text-light">Delete</a>
-    <a href="SendMail.php" class="text-light">Mail</a>
+    <a href="#" class="text-light">Mail</a>
     <a style="float: right" class="text-light" href="MainPage.php">Go back</a>
+    <!-- Small button groups (default and split) -->
+
 </div>
 
 <div class="container" style="margin-top: 80px">
-    <?php echo $info; $info = '';?>
-    <body>
+    <?php if(isset($_SESSION['mailAlert'])): echo $_SESSION['mailAlert']; unset($_SESSION['mailAlert']); endif;?>
+    <h2 class="text-center text-light">Send Message</h2>
+    <form method="post" action="phpScripts/Mail.php">
 
-        <h2 class="text-center text-light ">Catalog</h2>
-        <br>
-        <input class="form-control" id="myInput" type="text" placeholder="Search..">
-        <br>
-        <table class="table table-dark table-hover" style="cursor: pointer">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Product Name</th>
-                <th>Firm Name</th>
-                <th>Type</th>
-                <th>Amount</th>
-            </tr>
-            </thead>
-            <tbody id="myTable">
-            <?php foreach ($data as $item): echo $item; endforeach; ?>
-            </tbody>
-        </table>
+        <div class="row form-group">
+            <div class="col-sm-12">
+                <label for="subject" class="text-light">Subject:</label>
+                <input value="" type="text" maxlength="50" name="subject" class="form-control" id="subject" placeholder="Subject" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="msg" class="text-light">Message:</label>
+            <textarea maxlength="1000" name="msg" class="form-control" id="msg" rows="10" placeholder="Text" required></textarea>
+        </div>
 
+        <hr>
+        <div class="form-row justify-content-around form-group">
+            <button type="reset" class="col-3 btn btn-danger" name="reset">Reset</button>
+            <button type="submit" class="col-3 btn btn-success" name="add">Send</button>
+        </div>
 
-    </body>
+    </form>
 
 
 </div>
-
-<script>
-    function GetId(elem) {
-        var date = new Date(new Date().getTime() + 30 * 1000);
-        document.cookie = "id=" + elem.cells[0].innerText + ";" + "path=/; expires=" + date.toUTCString();
-        document.location = 'UpdateProductPage.php';
-    }
-</script>
-
-<script>
-    $(document).ready(function(){
-        $("#myInput").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-</script>
-
 
 <script>
     var prevScrollpos = window.pageYOffset;
@@ -111,3 +85,5 @@ if (!R::testConnection())
 
 </body>
 </html>
+
+
