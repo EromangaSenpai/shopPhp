@@ -3,6 +3,12 @@ function buy() {
     document.location = "MainPage.php";
 }
 
+function clear() {
+    document.getElementById('cartCount').innerHTML = 0;
+    alert('You clear your cart');
+    document.location = "MainPage.php";
+}
+
 function funcBefore() {
     console.log('Wait pls');
 }

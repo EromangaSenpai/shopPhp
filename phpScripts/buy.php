@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once 'db.php';
-if($_SESSION['key'])
+if($_SERVER['REQUEST_METHOD'] == 'POST' && $_SESSION['key'])
 {
     $cartArr = explode('/', $_SESSION['savesId']);
     for($i = 0; $i < count($cartArr); $i++)

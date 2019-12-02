@@ -47,7 +47,7 @@ class ProductInfo
                 switch ($item->type)
                 {
                     case 'smartphone':
-                        $this->goodsArr['smartphones'][$n_smartphone] = " <div class=\"col-lg-3 mb-4 div-column-style\">
+                        $this->goodsArr['smartphones'][$n_smartphone] = " <div class=\"col-md-3 mb-4 div-column-style\">
                     <a href='product_php.php?id=$id'>
                         <img src=$image_path class=\"img-thumbnail zoom\" style=\"background-color: $color; width: 304px; height:236px\" alt=\"Image\" width=\"304px\" height=\"236px\">
                         <div class=\"caption\">
@@ -67,8 +67,8 @@ class ProductInfo
                         break;
 
                     case 'laptop':
-                        $this->goodsArr['laptops'][$n_laptop] = " <div class=\"col-lg-3 mb-4 div-column-style\">
-                    <a href=$image_path>
+                        $this->goodsArr['laptops'][$n_laptop] = " <div class=\"col-md-3 mb-4 div-column-style\">
+                    <a href='product_php.php?id=$id'>
                         <img src=$image_path class=\"img-thumbnail zoom\" style=\"background-color: $color; width: 304px; height:236px\" alt=\"Image\" width=\"304px\" height=\"236px\">
                         <div class=\"caption text-primary\">
                             <div class=\"vis-hidden\" style=\"visibility: hidden\">$id</div>
@@ -87,8 +87,8 @@ class ProductInfo
                         break;
 
                     case 'tv':
-                        $this->goodsArr['tvs'][$n_tv] = " <div class=\"col-lg-3 mb-4 div-column-style\">
-                    <a href=$image_path>
+                        $this->goodsArr['tvs'][$n_tv] = " <div class=\"col-md-3 mb-4 div-column-style\">
+                    <a href='product_php.php?id=$id'>
                         <img src=$image_path class=\"img-thumbnail zoom\" style=\"background-color: $color; width: 304px; height:236px\" alt=\"Image\" width=\"304px\" height=\"236px\">
                         <div class=\"caption text-primary\">
                           

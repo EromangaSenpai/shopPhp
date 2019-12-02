@@ -97,7 +97,7 @@ else
         </div>
         <div class="form-group">
             <label for="textarea" class="text-light">Description:</label>
-            <textarea maxlength="1000" name="description" class="form-control" id="textarea" rows="3" placeholder="Product description" required></textarea>
+            <textarea maxlength="4000" name="description" class="form-control" id="textarea" rows="3" placeholder="Product description" required></textarea>
         </div>
         <hr>
         <div class="row form-group">

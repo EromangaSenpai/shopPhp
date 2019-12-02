@@ -21,7 +21,11 @@ class UserInfo
             $user = R::findOne('users', 'email = ?', array($this->email));
             if($user->root === 'admin')
             {
-                return "<button class=\"btn btn-outline-danger ml-2\" onclick=\"document.location = 'CreateProductPage.php'\">Admin Panel</button>";
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }
@@ -71,7 +75,32 @@ class UserInfo
         }
         else
         {
-            return "<div class=\"modal fade\" id=\"exampleModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
+            if($this->IsAdmin() === true)
+            {
+                return "<div class=\"modal fade\" id=\"exampleModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
+  <div class=\"modal-dialog\" role=\"document\">
+    <div class=\"modal-content\">
+      <div class=\"modal-header\">
+        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Hello $this->name</h5>
+        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">
+          <span aria-hidden=\"true\">&times;</span>
+        </button>
+      </div>
+      <div class=\"modal-body\">
+      
+        <button class=\"btn btn-outline-danger ml-2\" onclick=\"document.location = 'CreateProductPage.php'\">Admin Panel</button>
+        <a href=\"phpScripts/ExitScript.php\" class=\"float-right text-danger\">Exit</a>
+      </div>
+      <div class=\"modal-footer\">
+        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>
+      </div>
+    </div>
+  </div>
+</div>";
+            }
+            else
+            {
+                return "<div class=\"modal fade\" id=\"exampleModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
   <div class=\"modal-dialog\" role=\"document\">
     <div class=\"modal-content\">
       <div class=\"modal-header\">
@@ -89,6 +118,7 @@ class UserInfo
     </div>
   </div>
 </div>";
+            }
         }
     }
 
